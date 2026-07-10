@@ -38,10 +38,12 @@ Players.PlayerAdded:Connect(function(player)
 		return
 	end
 	
-	local leaderstats = Instance.new("Folder", player)
+	local leaderstats = Instance.new("Folder")
+	leaderstats.Parent = player
 	leaderstats.Name = "leaderstats"
 	
-	local Cash = Instance.new("IntValue", leaderstats)
+	local Cash = Instance.new("IntValue")
+	Cash.Parent = leaderstats
 	Cash.Name = "Cash"
 	Cash.Value = Data.Cash
 	

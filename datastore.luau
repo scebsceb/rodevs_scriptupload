@@ -1,12 +1,16 @@
+--// Services
 local DataStoreService = game:GetService("DataStoreService")
-local PlayerData = DataStoreService:GetDataStore("PlayerData")
-
 local Players = game:GetService("Players")
 
+--// DataStores
+local PlayerData = DataStoreService:GetDataStore("PlayerData")
+
+--// Variables or Tables
 local Template = {
 	Cash = 0,
 }
 
+--// Functions
 local function saveData(player)
 	local Data = {
 		Cash = player.leaderstats.Cash.Value,
@@ -16,11 +20,12 @@ local function saveData(player)
 		PlayerData:SetAsync(player.UserId, Data)
 	end)
 	
-	if success then
-		print(player.Name.." ("..player.DisplayName..") Data saved!")
+	if not success then
+		warn("Data can't be saved for player " .. player.Name .. ". Error: " .. err)
 	end
 end
 
+--// Events
 Players.PlayerAdded:Connect(function(player)
 	local Data
 	
@@ -32,8 +37,6 @@ Players.PlayerAdded:Connect(function(player)
 		player:Kick("Your data can't be loaded. Try rejoin.")
 		return
 	end
-	
-	print(Data)
 	
 	local leaderstats = Instance.new("Folder", player)
 	leaderstats.Name = "leaderstats"
